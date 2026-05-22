@@ -1,6 +1,5 @@
 {
   "name": "GoDaddy DDNS IPv6",
   "render_readme": true,
-  "domains": ["godaddy_ddns_ipv6"],
   "homeassistant": "2024.1.0"
 }
