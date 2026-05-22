@@ -1,0 +1,3 @@
+force_update:
+  name: Force update
+  description: Force an immediate GoDaddy AAAA DDNS update.
