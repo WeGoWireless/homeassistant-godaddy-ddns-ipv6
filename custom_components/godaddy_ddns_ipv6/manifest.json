@@ -5,8 +5,8 @@
   "config_flow": true,
   "dependencies": ["network"],
   "documentation": "https://github.com/WeGoWireless/homeassistant-godaddy-ddns-ipv6",
-  "issue_tracker": "https://github.com/WeGoWireless/homeassistant-godaddy-ddns-ipv6/issues",
   "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/WeGoWireless/homeassistant-godaddy-ddns-ipv6/issues",
   "requirements": [],
   "version": "1.0.3"
 }
