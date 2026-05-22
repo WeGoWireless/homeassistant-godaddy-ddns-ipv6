@@ -1,11 +1,11 @@
 {
   "domain": "godaddy_ddns_ipv6",
   "name": "GoDaddy DDNS IPv6",
-  "codeowners": [],
+  "codeowners": [WeGoWireless.com],
   "config_flow": true,
   "dependencies": [],
   "documentation": "",
   "iot_class": "cloud_polling",
-  "requirements": ["requests>=2.31.0"],
+  "requirements": [],
   "version": "1.0.0"
 }
