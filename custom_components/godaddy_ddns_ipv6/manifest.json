@@ -3,7 +3,7 @@
   "name": "GoDaddy DDNS IPv6",
   "codeowners": ["@WeGoWireless"],
   "config_flow": true,
-  "dependencies": [],
+  "dependencies": ["network"],
   "documentation": "https://github.com/WeGoWireless/homeassistant-godaddy-ddns-ipv6",
   "issue_tracker": "https://github.com/WeGoWireless/homeassistant-godaddy-ddns-ipv6/issues",
   "iot_class": "cloud_polling",
