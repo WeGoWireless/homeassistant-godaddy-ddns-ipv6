@@ -1,4 +1,4 @@
-# GoDaddy DDNS IPv6 for Home Assistant
+# DDNS Updater IPv6 for Home Assistant
 
 Automatically updates a GoDaddy AAAA DNS record using the current IPv6 address from a selected Home Assistant network interface.
 
@@ -109,4 +109,4 @@ In HACS:
 Add:
 
 ```text
-https://github.com/YOUR_GITHUB_USERNAME/homeassistant-godaddy-ddns-ipv6
+https://github.com/WeGoWireless/homeassistant-godaddy-ddns-ipv6
