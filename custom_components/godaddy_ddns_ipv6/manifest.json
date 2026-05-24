@@ -1,6 +1,6 @@
 {
   "domain": "godaddy_ddns_ipv6",
-  "name": "GoDaddy DDNS IPv6",
+  "name": "DDNS Updater",
   "codeowners": ["@WeGoWireless"],
   "config_flow": true,
   "dependencies": ["network"],
