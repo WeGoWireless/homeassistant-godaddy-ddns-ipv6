@@ -1,5 +1,5 @@
 {
-  "name": "GoDaddy DDNS IPv6",
+  "name": "DDNS Updater",
   "render_readme": true,
   "homeassistant": "2024.1.0"
 }
