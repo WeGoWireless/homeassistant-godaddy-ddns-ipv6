@@ -1,0 +1,16 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "DDNS Updater",
+        "description": "Configure the GoDaddy DDNS IPv6 integration",
+        "data": {
+          "api_key": "API Key",
+          "api_secret": "API Secret",
+          "domain": "Domain",
+          "record_name": "Record Name"
+        }
+      }
+    }
+  }
+}
