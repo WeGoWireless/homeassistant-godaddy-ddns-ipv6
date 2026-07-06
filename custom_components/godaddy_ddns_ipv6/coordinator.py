@@ -1,4 +1,9 @@
+"""Coordinator helpers for GoDaddy DDNS IPv6."""
+
+from __future__ import annotations
+
 import logging
+
 import requests
 
 from homeassistant.components import network
@@ -17,6 +22,8 @@ _LOGGER = logging.getLogger(__name__)
 
 
 class GoDaddyDDNSUpdater:
+    """Update a GoDaddy AAAA record with the selected interface IPv6 address."""
+
     def __init__(self, hass, entry):
         self.hass = hass
         self.entry = entry
@@ -30,6 +37,7 @@ class GoDaddyDDNSUpdater:
         return self.entry.options.get(key, self.entry.data.get(key))
 
     async def async_update(self, force=False):
+        """Find current IPv6 and update GoDaddy if needed."""
         ipv6 = await self._async_get_ipv6()
 
         if not ipv6:
@@ -41,7 +49,10 @@ class GoDaddyDDNSUpdater:
         if not force and ipv6 == self.last_ipv6:
             self.last_success = True
             self.last_message = "IPv6 unchanged"
+            _LOGGER.debug("GoDaddy DDNS IPv6 unchanged: %s", ipv6)
             return self._data(ipv6)
+
+        old_ipv6 = self.last_ipv6
 
         try:
             status_code, message = await self.hass.async_add_executor_job(
@@ -54,6 +65,22 @@ class GoDaddyDDNSUpdater:
             self.last_success = status_code == 200
             self.last_http_code = status_code
             self.last_message = message
+
+            if self.last_success:
+                if old_ipv6 and old_ipv6 != ipv6:
+                    _LOGGER.info(
+                        "GoDaddy DDNS updated AAAA record from %s to %s",
+                        old_ipv6,
+                        ipv6,
+                    )
+                else:
+                    _LOGGER.info("GoDaddy DDNS updated AAAA record to %s", ipv6)
+            else:
+                _LOGGER.warning(
+                    "GoDaddy DDNS update failed with HTTP %s: %s",
+                    status_code,
+                    message,
+                )
 
         except Exception as err:
             self.last_success = False
@@ -88,7 +115,6 @@ class GoDaddyDDNSUpdater:
             502: "Bad Gateway",
             503: "Service Unavailable",
         }
-
         return mapping.get(code, f"HTTP {code}")
 
     async def _async_get_ipv6(self):
@@ -109,12 +135,15 @@ class GoDaddyDDNSUpdater:
 
                 if addr.startswith("fe80"):
                     continue
+
                 if addr.startswith("fd"):
                     continue
+
                 if addr.startswith("::1"):
                     continue
 
-                _LOGGER.info(
+                # Keep this as debug so every coordinator refresh does not spam HA logs.
+                _LOGGER.debug(
                     "GoDaddy DDNS found global IPv6 on %s: %s",
                     interface,
                     addr,
@@ -132,12 +161,10 @@ class GoDaddyDDNSUpdater:
         ttl = self._get_config(CONF_TTL)
 
         url = f"https://api.godaddy.com/v1/domains/{domain}/records/AAAA/{record}"
-
         headers = {
             "Authorization": f"sso-key {api_key}:{api_secret}",
             "Content-Type": "application/json",
         }
-
         payload = [
             {
                 "data": ipv6,
