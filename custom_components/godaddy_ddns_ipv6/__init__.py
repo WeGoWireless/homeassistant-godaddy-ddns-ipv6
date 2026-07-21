@@ -9,7 +9,11 @@ from .coordinator import GoDaddyDDNSUpdater
 
 _LOGGER = logging.getLogger(__name__)
 
-PLATFORMS = [Platform.SENSOR, Platform.BUTTON]
+PLATFORMS = [
+    Platform.SENSOR,
+    Platform.BINARY_SENSOR,
+    Platform.BUTTON,
+]
 
 async def async_setup_entry(hass, entry):
     updater = GoDaddyDDNSUpdater(hass, entry)
